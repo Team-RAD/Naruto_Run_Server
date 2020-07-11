@@ -1,5 +1,5 @@
 const { model } = require("mongoose")
-
+const fs = require("fs")
 let dataFile = "../data/naruto_posts.json"
 let narutoPosts = require(dataFile)
 
