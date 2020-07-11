@@ -1,5 +1,5 @@
 //destructuring getAllPosts and getPostByID for use in the posts_controller
-const { getAllPosts, getPostById } = require("../utils/utilities")
+const { getAllPosts, getPostById, addPost } = require("../utils/utilities")
 
 //creates object getPosts with function taking in requests and responds by sending getAllPosts
 const getPosts = function(req, res) {
@@ -16,8 +16,22 @@ const getPost = function(req, res) {
             res.send(req.error)
     }
 }
+
+const makePost = function(req, res) {
+    let post = addPost(req)
+    if (post) {
+        res.status(201)
+        res.send(post)
+    } else {
+        res.status(500)
+        res.send(`Error occured: ${req.error}`)
+    }
+}
+
+
 //exports both variables for use elsewhere
 module.exports = {
     getPosts,
-    getPost
+    getPost,
+    makePost
 }
