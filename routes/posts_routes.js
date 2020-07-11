@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-
+//pulls in getPosts and getPost from the posts_controller
 const { getPosts, getPost } = require("../controllers/posts_controller")
 
 // READ
