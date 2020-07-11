@@ -38,6 +38,26 @@ describe("getPostById", () => {
         })
 })
 
+describe("addPost", () => {
+	it("should add a post", () => {
+		// define a req object with expected structure
+		const req = {
+			body: {
+                pre_tech_job: "Retail Assistant",
+                current_tech_job: "Cyber Security Expert",
+			}
+		}
+		let post = utilities.addPost(req)
+		expect(post.pre_tech_job).toBe(req.body.pre_tech_job)
+	})
+	it("should update all narutoPosts", () => {
+		// add the post again because setupData will clear the one we created
+		utilities.addPost(req)
+		let posts = utilities.getAllPosts({})
+		expect(Object.keys(posts).length).toBe(2)
+	})
+})
+
 function setupData() {
     let testPostData = {}
     let testPost = {}
