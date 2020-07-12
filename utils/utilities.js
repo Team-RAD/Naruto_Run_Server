@@ -26,6 +26,7 @@ const getDataFileRelativeToApp = function(file) {
 
 }
 
+//creates the add post constant using try catch
 const addPost = function(req) {
     try {
         const date = Date.now()
@@ -56,7 +57,7 @@ const addPost = function(req) {
         }
 
     }
-
+//function for getting the next ID - this is hoistered into addPost 
 function getNextId() {
     let sortedIds = Object.keys(narutoPosts).sort()
     nextId = (sortedIds.length != 0)
@@ -66,8 +67,42 @@ function getNextId() {
     return nextId
 }
 
+//deletes a post by its id
+const deletePost = function(id) {
+    if (Object.keys(narutoPosts).includes(id)) {
+        delete narutoPosts[id]
+        fs.writeFileSync(getDataFileRelativeToApp(dataFile), JSON.stringify(narutoPosts))
+    }
+    return narutoPosts
+}
 
+//updates a post based on its id
+const updatePost = function(req) {
+    try {
+            let id = req.params.id
+            if (!narutoPosts[id]) throw "Naruto Post not found"
+            narutoPosts[id].pre_tech_job = req.body.pre_tech_job
+            narutoPosts[id].current_tech_job = req.body.current_tech_job
+            narutoPosts[id].education = req.body.education
+            narutoPosts[id].resources_required = req.body.resources_required
+            narutoPosts[id].time_taken = req.body.time_taken
+            narutoPosts[id].cost = req.body.cost
+            narutoPosts[id].journey = req.body.journey
+            narutoPosts[id].tech_stack = req.body.tech_stack
+            narutoPosts[id].os_allegiance = req.body.os_allegiance
+            narutoPosts[id].fueled_by = req.body.fueled_by
+            narutoPosts[id].favourite_coding_playlist = req.body.favourite_coding_playlist
+            narutoPosts[id].follow_me_links = req.body.follow_me_links
+            narutoPosts[id].modified_date = Date.now()
+            fs.writeFileSync(getDataFileRelativeToApp(dataFile), JSON.stringify(narutoPosts))
+            return narutoPosts[id]
+        
+        } catch (error) {
+            req.error = error
+            return null
+        }
 
+}
 
 
 //exporting the above functions for use elsewhere in the app
@@ -75,6 +110,8 @@ module.exports = {
     getAllPosts,
     getPostById,
     addPost,
+    deletePost,
+    updatePost,
     loadData,
     getDataFileRelativeToApp
 }

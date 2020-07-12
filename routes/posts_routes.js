@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 //pulls in getPosts and getPost from the posts_controller
-const { getPosts, getPost, makePost } = require("../controllers/posts_controller")
+const { getPosts, getPost, makePost, removePost, changePost } = require("../controllers/posts_controller")
 
 // READ
 // GET on '/posts'
@@ -22,9 +22,11 @@ router.post("/", makePost)
 // DELETE
 // DELETE on '/posts/:id'
 // Deletes a post with id
+router.delete("/:id", removePost)
 
 // UPDATE
 // PUT on 'posts/:id'
 // Updates a post with id
+router.put("/:id", changePost)
 
 module.exports = router 

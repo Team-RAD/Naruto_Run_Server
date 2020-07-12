@@ -58,6 +58,15 @@ describe("addPost", () => {
 	})
 })
 
+describe("deletePost", () => {
+	it("should delete the specified post", () => {
+		let id = "1"
+		let narutoPosts = utilities.deletePost(id)
+		let ids = Object.keys(narutoPosts)
+		expect(ids.includes("1")).toBe(false)
+	})
+})
+
 function setupData() {
     let testPostData = {}
     let testPost = {}
