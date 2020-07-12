@@ -1,47 +1,65 @@
-//destructuring getAllPosts and getPostByID for use in the posts_controller
-const { getAllPosts, getPostById, addPost, deletePost, updatePost } = require("../utils/utilities")
+//destructuring for use in the posts_controller
+const { getAllPosts, getPostById, addPost, deletePost, updatePost } = require("../utils/posts_utilities")
 
 //creates object getPosts with function taking in requests and responds by sending getAllPosts
 const getPosts = function(req, res) {
-    res.send(getAllPosts(req))
+    getAllPosts(req).exec((err, posts) => {
+        if (err){
+            res.status(500)
+            return res.json({
+                error: err.message
+            })
+        }
+        res.send(posts)
+    })
 }
 //creates object getPost 
 const getPost = function(req, res) {
-    let post = getPostById(req)
-    //if post exists it sends the post
-    if (post) res.send(post)
-    //if it cant find a post it gives a 404 and sends error
-    else {
+    getPostById(req.params.id).exec((err, post) => {
+        if (err){
             res.status(404)
-            res.send(req.error)
-    }
+            return res.send("Naruto Post not found")
+        }
+        res.send(post)
+    })
 }
 
 const makePost = function(req, res) {
-    let post = addPost(req)
-    if (post) {
+    addPost(req.body).save((err,post) => {
+        if (err){
+            res.status(500)
+            return res.json({
+                error: err.message
+            })
+        }
         res.status(201)
         res.send(post)
-    } else {
-        res.status(500)
-        res.send(`Error occured: ${req.error}`)
-    }
+    })
 }
 
 const removePost = function(req, res) {
-    let narutoPosts = deletePost(req.params.id)
-    res.send(narutoPosts)
+    deletePost(req.params.id).exec((err) => {
+        if (err){
+            res.status(500)
+            return res.json({
+                error: err.message
+            })
+        }
+        res.sendStatus(204)
+    })
 }
 
 const changePost = function(req, res) {
-    let post = updatePost(req)
-    if (post) {
+    updatePost(req).exec((err,post) => {
+        if (err) {
+            res.status(500)
+            return res.json({
+                error: err.message
+            })
+        }
         res.status(200)
         res.send(post)
-    } else {
-        res.status(500)
-        res.send(`Error occured: ${req.error}`)
-    }
+    })
 }
 
 //exports variables for use elsewhere
