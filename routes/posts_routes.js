@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 //pulls in from the posts_controller
-const { getPosts, getPost, makePost, removePost, changePost } = require("../controllers/posts_controller")
+const { getPosts, getPost, makePost, removePost, changePost, userAuthenticated } = require("../controllers/posts_controller")
 
 // READ
 // GET on '/posts'
@@ -13,6 +13,8 @@ router.get("/", getPosts)
 // Returns post with given id
 router.get("/:id", getPost)
 
+//userauthenticated door from posts controller
+router.use(userAuthenticated)
 
 // CREATE
 // POST on '/posts'
