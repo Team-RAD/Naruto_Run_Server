@@ -5,20 +5,20 @@ const getAllPosts = function(req) {
     return NarutoPost.find()
 }
 
-// requests individual posts by id, returns if exists, if not returns error 
+// requests individual posts by id, returns if exists, if not displays "Post not found" 
 const getPostById = function(id) {
     let post = NarutoPost[req.params.id]
     if (post) return post
     else req.error = "Post not found"
 }
 
-//creates the add post constant using try catch
+//creates the add post constant
 const addPost = function(body) {
     return new NarutoPost(body)
     }
 
 
-//deletes a post by its id
+//deletes a post based its id
 const deletePost = function(id) {
     return NarutoPost.findByIdAndRemove(id)
 }
@@ -32,7 +32,7 @@ const updatePost = function(req) {
 }
 
 
-//exporting the above functions for use elsewhere in the app
+//exports the above functions for use elsewhere in the app
 module.exports = {
     getAllPosts,
     getPostById,
