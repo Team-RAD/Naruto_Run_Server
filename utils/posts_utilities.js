@@ -6,8 +6,8 @@ const getAllPosts = function(req) {
 }
 
 // requests individual posts by id, returns if exists, if not displays "Post not found" 
-const getPostById = function(id) {
-    let post = NarutoPost[req.params.id]
+const getPostById = function(req) {
+    let post = NarutoPost.findById(req.params.id)
     if (post) return post
     else req.error = "Post not found"
 }
