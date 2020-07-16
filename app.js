@@ -2,6 +2,7 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
+const connectDB = require('./config/db');
 const mongoose = require("mongoose")
 const session = require("express-session")
 const MongoStore = require("connect-mongo")(session)
@@ -14,29 +15,34 @@ const port = process.env.port || 3006
 
 const app = express()
 
+//Connect the database 
+connectDB();
+console.log(process.env.NODE_ENV);
+console.log(process.env.MONGODB_URI);
+
 app.use(cors())
 app.use(bodyParser.json())
 
 //creates database connection
-const dbConn = "mongodb://localhost/naruto_run"
+// const dbConn = "mongodb://localhost/naruto_run"
 
 //uses mongoose to connect to database - confirms by console logging "connected to naruto run database"
-mongoose.connect(
-    dbConn,
-    {
-      useNewUrlParser : true,
-      useUnifiedTopology : true,
-      useFindAndModify : false,
-      useCreateIndex: true  
-    },
-    err => {
-        if (err){
-            console.log("error connecting database", err)
-        } else {
-            console.log("Connected to naruto run database!!")
-        }
-    }
-)
+// mongoose.connect(
+//     dbConn,
+//     {
+//       useNewUrlParser : true,
+//       useUnifiedTopology : true,
+//       useFindAndModify : false,
+//       useCreateIndex: true  
+//     },
+//     err => {
+//         if (err){
+//             console.log("error connecting database", err)
+//         } else {
+//             console.log("Connected to naruto run database!!")
+//         }
+//     }
+// )
 
 //middleware - server is going to handle sessions
 app.use(session({
