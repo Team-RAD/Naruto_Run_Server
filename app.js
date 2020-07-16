@@ -11,7 +11,7 @@ const postRouter = require("./routes/posts_routes")
 const authRouter = require("./routes/auth_routes")
 
 //define port - if not deployed it will run on port 3006
-const port = process.env.port || 3006
+const port = process.env.PORT || 3006
 
 const app = express()
 
