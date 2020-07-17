@@ -1,6 +1,8 @@
 const passport = require("passport")
+// pulling user from the models
 const User = require("../models/user")
 
+// register takes in username email and password, creates a new instance
 const register = function(req, res){
     User.register(new User ({
         username: req.body.username,
@@ -32,6 +34,7 @@ function loginUser(req, res) {
     });
 }
 
+//logs out user
 const logout = function(req, res) {
     req.logout()
     console.log("logged out user")
@@ -40,4 +43,5 @@ const logout = function(req, res) {
     res.sendStatus(200)
 }
 
+// exporting register, loginUser, logout for use elsewhere
 module.exports = {register, loginUser, logout}

@@ -20,31 +20,11 @@ connectDB();
 console.log(process.env.NODE_ENV);
 console.log(process.env.MONGODB_URI);
 
+//initializes cors and bodyParser middleware 
 app.use(cors())
 app.use(bodyParser.json())
 
-//creates database connection
-// const dbConn = "mongodb://localhost/naruto_run"
-
-//uses mongoose to connect to database - confirms by console logging "connected to naruto run database"
-// mongoose.connect(
-//     dbConn,
-//     {
-//       useNewUrlParser : true,
-//       useUnifiedTopology : true,
-//       useFindAndModify : false,
-//       useCreateIndex: true  
-//     },
-//     err => {
-//         if (err){
-//             console.log("error connecting database", err)
-//         } else {
-//             console.log("Connected to naruto run database!!")
-//         }
-//     }
-// )
-
-//middleware - server is going to handle sessions
+//middleware - server is going to handle sessions. Secret is used to encrypt the password and max age defines the session length
 app.use(session({
     secret: "secret",
     resave: false,
@@ -58,11 +38,12 @@ app.use(session({
 
 }))
 
+// Requiring passport from config and initializing passport and session 
 require("./config/passport")
 app.use(passport.initialize())
 app.use(passport.session())
 
-
+// Connects the session to the route
 app.get("/",(req,res)=> {
     console.log(req.session)
     res.send(req.session)
