@@ -29,6 +29,14 @@ const loginUser = function(req, res) {
     })
 }
 
+//do we change to this one?
+// function loginUser(req, res) {
+//     authenticate(req, res, function () {
+//     res.status(200);
+//     res.json({user: req.user, sessionID: req.sessionID});
+//     });
+//     }
+
 const logout = function(req, res) {
     req.logout()
     console.log("logged out user")

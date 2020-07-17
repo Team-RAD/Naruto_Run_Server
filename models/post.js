@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const NarutoPost = new Schema ({
+    username: {
+        type: String,
+        required: true
+    },        
     pre_tech_job: {
         type: String,
         required: true

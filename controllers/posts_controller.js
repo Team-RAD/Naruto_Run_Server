@@ -32,6 +32,8 @@ const getPost = function(req, res) {
 const makePost = function(req, res) {
     //adds username
     req.body.username = req.user.username
+    console.log(req.body)
+    console.log(req.user.username)
     //saves the post instance
     addPost(req.body).save((err,post) => {
         if (err){
@@ -96,9 +98,6 @@ const userAuthenticated = function(req, res, next){
 //middleware - if user isn't post owner it sends forbidden
 
 const verifyOwner = function(req, res, next){
-    if (req.user.username === post.username){
-        next()
-    }else{
         getPostById(req).exec((err,post) => {
             if (err) {
                 req.error = {
@@ -115,7 +114,7 @@ const verifyOwner = function(req, res, next){
             }
             next()
         })
-    }
+    
 }
 
 
