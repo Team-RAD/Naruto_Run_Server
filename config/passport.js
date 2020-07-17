@@ -1,4 +1,5 @@
 const passport = require("passport");
+//pulling in user from models
 const User = require("../models/user");
 //set up passport-local strategy with correct options
 passport.use(User.createStrategy());

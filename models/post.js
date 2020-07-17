@@ -1,6 +1,9 @@
+// importing mongose
 const mongoose = require("mongoose")
+// defining a schema using mongoose
 const Schema = mongoose.Schema
 
+// defining the post schema "NarutoPost"
 const NarutoPost = new Schema ({
     username: {
         type: String,
@@ -53,4 +56,5 @@ const NarutoPost = new Schema ({
 
 })
 
+// exporting "NarutoPost"
 module.exports = mongoose.model("NarutoPost", NarutoPost)
