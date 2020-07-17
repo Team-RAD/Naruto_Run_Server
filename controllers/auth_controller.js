@@ -18,24 +18,19 @@ const register = function(req, res){
     })
 }
 
+//this is a helper function
+const authenticate = passport.authenticate('local');
 
-
-const loginUser = function(req, res) {
-    passport.authenticate("local")(req, res, function () {
-        console.log("authenticated", req.user.username)
-        console.log("session: ", req.session)
-        console.log("user:", req.user)
-        res.json(req.user)
-    })
+function loginUser(req, res) {
+    console.log("in loginuser with req", req.body)
+    authenticate(req, res, function () {
+        console.log('authenticated', req.user.username);
+        console.log('session object:', req.session);
+        console.log('req.user:', req.user);
+        res.status(200);
+        res.json({user: req.user, sessionID: req.sessionID});
+    });
 }
-
-//do we change to this one?
-// function loginUser(req, res) {
-//     authenticate(req, res, function () {
-//     res.status(200);
-//     res.json({user: req.user, sessionID: req.sessionID});
-//     });
-//     }
 
 const logout = function(req, res) {
     req.logout()
