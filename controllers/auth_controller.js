@@ -9,10 +9,17 @@ const register = function(req, res){
         email: req.body.email
     }), req.body.password, function(err){
         if(err){
-            res.status(500)
-            res.json({
+                if(err.name === 'UserExistsError') {
+                res.status(409)
+                res.json({
+                error: err.message
+                });
+                } else {
+                res.status(500);
+                res.json({
                 error: err
-            })
+                });
+                }
         }else{
             //log in the user
             loginUser(req, res)
