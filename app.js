@@ -70,3 +70,5 @@ app.use('/auth', authRouter);
 app.listen(port, () => {
 	console.log(`Naruto running on port ${port}`);
 });
+
+module.exports = app;
