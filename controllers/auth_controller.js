@@ -50,5 +50,14 @@ const logout = function(req, res) {
     res.sendStatus(200)
 }
 
+const authenticatedUser = function(req, res) {
+    if (req.user) {
+        res.status(200);
+        res.send(req.user.username)
+    } else {
+        res.sendStatus(403)
+    }
+}
+
 // exporting register, loginUser, logout for use elsewhere
-module.exports = {register, loginUser, logout}
+module.exports = {register, loginUser, logout, authenticatedUser}
