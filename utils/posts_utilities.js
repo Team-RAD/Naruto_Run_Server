@@ -2,8 +2,9 @@ const NarutoPost = require("../models/post")
 
 // requests and returns all of the posts 
 const getAllPosts = function(req) {
-    return NarutoPost.find()
-}
+    if (req.query.username) return Post.findByUsername(req.query.username)
+    else return NarutoPost.find();
+    }
 
 // requests individual posts by id, returns if exists, if not displays "Post not found" 
 const getPostById = function(req) {

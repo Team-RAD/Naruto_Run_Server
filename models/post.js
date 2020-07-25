@@ -56,5 +56,11 @@ const NarutoPost = new Schema ({
 
 })
 
+NarutoPost.statics.findByUsername = function (username) {
+    return this.find({
+        username: username
+    });
+};
+
 // exporting "NarutoPost"
 module.exports = mongoose.model("NarutoPost", NarutoPost)
