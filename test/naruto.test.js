@@ -3,8 +3,6 @@ const agent = supertest.agent('localhost:3006')
 const assert = require('assert');
 const app = require("../app");
 let randomName = Math.random().toString(36).substring(7);
-
-
 //  tests if get on root "/" generates a 200 response, and get on "/posts" and "/posts/id" generates a JSON
 describe("GET /", function() {
     it("it should respond with a status code of 200", function(done) {
@@ -19,17 +17,6 @@ describe("GET /", function() {
     it("it should respond with a JSON ", function(done){
         supertest(app)
           .get("/posts")
-          .expect('Content-Type', /json/)
-          .end(function(err, res){
-            if (err) done(err);
-            done();
-          });
-    });
-    //test specific post ID from local database
-    it("it should respond with a JSON if post exists", function(done){
-        supertest(app)
-          .get("/posts/5f0a901d90fd6615c12c2154")
-          .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
           .end(function(err, res){
             if (err) done(err);
@@ -70,8 +57,6 @@ describe("POST /", function(){
         });
     });
   });
-
-
   // test user registration, logout, login
   describe("POST /", function(){
     it("it should return status code 200 if registration successful", function(done) {
@@ -114,10 +99,8 @@ describe("POST /", function(){
         });
     });
   });
-
-
+  //Test create update delete
   describe('CRUD', function () {
-
       it('should login superadmin', function(done) {
       agent
         .post('/auth/login')
@@ -131,16 +114,11 @@ describe("POST /", function(){
           return done();
         });
       });
-      
       let post; 
-
       before(function (done) {
         post = null
         done();
       });
-      
-           
-      
       it("it should return status code 200 if post is created by authorised user", function(done) {
       agent
       .post("/posts")
@@ -160,41 +138,48 @@ describe("POST /", function(){
       .expect(201)
       .end(function(err, res){
         if (err) done(err);
-        post = res.body.result;
-        console.log(post)
+        post = res.body;
         done();
         });
       });
-
-    //   it("it should return status code 200 if post is updated by authorised user", function(done) {
-    //   agent
-    //   .update(`/posts/${post.id}`)
-    //   .send({ pre_tech_job: "Decepticon",
-    //           current_tech_job: "Megatron",
-    //           education: "The streets",
-    //           resources_required: "Quintessons",
-    //           time_taken: "16 months",
-    //           cost: "99000000",
-    //           journey: "The civil war on Cybertron between the Autobots and Decepticons was instigated by Megatron, and fought over control of the cube. The planet was destroyed in the process of the war, and the cube was lost in the far reaches of space, otherwise known as Earth. Carbon dating places its arrival here around 10,000 B.C",
-    //           tech_stack: "Prototypical Targetmaster technology",
-    //           os_allegiance: "Windows",
-    //           fueled_by: "The Allspark",
-    //           favourite_coding_playlist: "metal",
-    //           follow_me_links: "optimus_prime@autobots.com"})
-    //   .expect(201)
-    //   .end(function(err, res){
-    //     if (err) done(err);
-    //     done();
-    //   });
-    // });
-      
-    //   it("it should return status code 200 if post is deleted by authorised user", function(done) {
-    //     agent
-    //       .delete(`/posts/${post.id}`)
-    //       .expect(200)
-    //       .end(function(err, res){
-    //         if (err) done(err);
-    //         done();
-    //       });
-    //   });
+      it("it should respond with a JSON if post exists", function(done){
+        supertest(app)
+          .get(`/posts/${post._id}`)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) done(err);
+            done();
+          });
+    });
+      it("it should return status code 200 if post is updated by authorised user", function(done) {
+      agent
+      .put(`/posts/${post._id}`)
+      .send({ pre_tech_job: "Decepticon",
+              current_tech_job: "Megatron",
+              education: "The streets",
+              resources_required: "Quintessons",
+              time_taken: "16 months",
+              cost: "99000000",
+              journey: "The civil war on Cybertron between the Autobots and Decepticons was instigated by Megatron, and fought over control of the cube. The planet was destroyed in the process of the war, and the cube was lost in the far reaches of space, otherwise known as Earth. Carbon dating places its arrival here around 10,000 B.C",
+              tech_stack: "Prototypical Targetmaster technology",
+              os_allegiance: "Windows",
+              fueled_by: "The Allspark",
+              favourite_coding_playlist: "metal",
+              follow_me_links: "optimus_prime@autobots.com"})
+      .expect(200)
+      .end(function(err, res){
+        if (err) done(err);
+        done();
+      });
+    });
+      it("it should return status code 200 if post is deleted by authorised user", function(done) {
+        agent
+          .delete(`/posts/${post._id}`)
+          .expect(204)
+          .end(function(err, res){
+            if (err) done(err);
+            done();
+          });
+      });
 });
