@@ -39,17 +39,13 @@ app.use(bodyParser.json());
 //middleware - server is going to handle sessions. Secret is used to encrypt the password and max age defines the session length
 
 
-app.enable('trust proxy');
+
 app.use(
 	session({
-		proxy: true,
 		secret: 'secret',
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
-			secure: true,
-			sameSite: 'none',
-			httpOnly: false,
 			maxAge: 1800000
 		},
 		store: new MongoStore({
