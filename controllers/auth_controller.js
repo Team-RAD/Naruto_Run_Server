@@ -55,7 +55,7 @@ const authenticatedUser = function(req, res) {
         res.status(200);
         res.send(req.user.username)
     } else {
-        res.sendStatus(403)
+        res.sendStatus(204)
     }
 }
 
