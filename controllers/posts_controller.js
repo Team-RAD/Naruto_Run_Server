@@ -1,4 +1,3 @@
-//destructuring for use in the posts_controller
 const { getAllPosts, getPostById, addPost, deletePost, updatePost } = require("../utils/posts_utilities")
 const post = require("../models/post")
 
@@ -28,7 +27,7 @@ const getPost = function(req, res) {
     })
 }
 
-//creates a new post using the addPost funciton as a promise
+//creates a new post using the addPost function as a promise
 const makePost = function(req, res) {
     //adds username
     req.body.username = req.user.username
@@ -86,11 +85,11 @@ const changePost = function(req, res) {
 }
 //middleware - user must be authenticated to post, update and delete
 const userAuthenticated = function(req, res, next){
-//if door is open
+//if door is open - access granted
     if (req.isAuthenticated()){
         next()
     }else{
-//if door is closed - you are not allowed
+//if door is closed - access denied
         res.sendStatus(403)
     }
 }
@@ -117,8 +116,6 @@ const verifyOwner = function(req, res, next){
     
 }
 
-
-//exports variables for use elsewhere
 module.exports = {
     getPosts,
     getPost,

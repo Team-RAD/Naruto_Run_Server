@@ -32,8 +32,6 @@ const updatePost = function(req) {
 
 }
 
-
-//exports the above functions for use elsewhere in the app
 module.exports = {
     getAllPosts,
     getPostById,

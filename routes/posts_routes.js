@@ -1,4 +1,3 @@
-// importing express
 const express = require("express")
 // defining the router using express 
 const router = express.Router()
@@ -15,7 +14,7 @@ router.get("/", getPosts)
 // Returns post with given id
 router.get("/:id", getPost)
 
-//userauthenticated door from posts controller
+//userAuthenticated door from posts controller
 router.use(userAuthenticated)
 
 // CREATE
@@ -34,5 +33,4 @@ router.delete("/:id", verifyOwner, removePost)
 // Updates a post with id
 router.put("/:id", verifyOwner, changePost)
 
-// exporting router for use elsewhere
 module.exports = router 

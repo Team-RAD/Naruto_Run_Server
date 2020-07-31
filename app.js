@@ -1,4 +1,3 @@
-//requiring everything from npm
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -37,8 +36,6 @@ app.use(
 app.use(bodyParser.json());
 
 //middleware - server is going to handle sessions. Secret is used to encrypt the password and max age defines the session length
-
-
 
 app.use(
 	session({

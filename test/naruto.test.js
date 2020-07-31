@@ -3,6 +3,7 @@ const agent = supertest.agent('localhost:3006')
 const assert = require('assert');
 const app = require("../app");
 let randomName = Math.random().toString(36).substring(7);
+
 //  tests if get on root "/" generates a 200 response, and get on "/posts" and "/posts/id" generates a JSON
 describe("GET /", function() {
     it("it should respond with a status code of 200", function(done) {
@@ -33,6 +34,7 @@ describe("GET /", function() {
           });
     });
   });
+
   //test post from unauthorised user
 describe("POST /", function(){
     it("it should return status code 403 (forbidden) if post creator is not authorised", function(done) {
@@ -57,6 +59,7 @@ describe("POST /", function(){
         });
     });
   });
+
   // test user registration, logout, login
   describe("POST /", function(){
     it("it should return status code 200 if registration successful", function(done) {
@@ -99,6 +102,7 @@ describe("POST /", function(){
         });
     });
   });
+  
   //Test create update delete
   describe('CRUD', function () {
       it('should login superadmin', function(done) {
