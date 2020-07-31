@@ -14,6 +14,10 @@ Client: https://github.com/Team-RAD/Naruto_Run_Client
 
 Server: https://github.com/Team-RAD/Naruto_Run_Server
 
+#### .env file
+
+.env file should contain the MongoDB URI connection string containing username, database and password.
+
 #### Team Structure
 
 The RAD team met up prior to project commencement to bond, clarify objectives and assign roles to better aid in our development process, thus maximizing our chances of a successful build.
@@ -64,9 +68,5 @@ _devDependencies:_
 - Mocha: Mocha is a feature rich JavaScript test framework running on node.js and in the browser making asynchronous testing simple and fun.
 - Nodemon: Nodemon automatically starts the node application when files changes in the directory are detected.
 - supertest: Supertest is a HTTP assertions library that allows you to test your node.js HTTP servers.
-
-#### .env file
-
-.env file should contain the MongoDB URI connection string containing username, database and password.
 
 #### Thanks for stopping by! :)

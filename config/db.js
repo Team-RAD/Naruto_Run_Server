@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// define the database if not running mongodb URI it will run off the local host
 const db = process.env.MONGODB_URI || 'mongodb://localhost/naruto_run';
 
 // run async function to connect to atlas it will display if connected or post an error if not
@@ -12,7 +11,7 @@ const connectDB = async () => {
      useCreateIndex: true
     });
     console.log('MongoDB Atlas connected', db);
-  } catch (error) {
+    } catch (error) {
       console.error(error.message);
       process.exit(1)
   }

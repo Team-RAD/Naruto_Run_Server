@@ -1,4 +1,3 @@
-// importing mongose
 const mongoose = require("mongoose")
 // defining a schema using mongoose
 const Schema = mongoose.Schema
@@ -62,5 +61,4 @@ NarutoPost.statics.findByUsername = function (username) {
     });
 };
 
-// exporting "NarutoPost"
 module.exports = mongoose.model("NarutoPost", NarutoPost)
